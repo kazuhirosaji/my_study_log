@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-MyStudyLog::Application.config.secret_key_base = '9f5e7c435d4988870fbea972d3f324a5898625a740b06379460b3ca1c392e5bb12e2df379295820aa63c6f19268a9eeaff1f4a18377cb9455d6b0706c2874188'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+MyStudyLog::Application.config.secret_key_base = secure_token
+
