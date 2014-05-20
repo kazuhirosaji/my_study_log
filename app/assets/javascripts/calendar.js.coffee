@@ -4,8 +4,9 @@ $ ->
     editable : true
     disableDragging: true
 
+
     dayClick : (date, allDay, jsEvent, view) ->
-      mode = "saji"
+      mode = $('input[name="mode"]:checked').val()
       $('#calendar').fullCalendar('addEventSource', [{
         title: mode,
         start: date,
