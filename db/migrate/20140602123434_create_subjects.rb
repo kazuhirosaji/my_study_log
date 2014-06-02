@@ -6,5 +6,6 @@ class CreateSubjects < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :subjects, [:user_id]
   end
 end
