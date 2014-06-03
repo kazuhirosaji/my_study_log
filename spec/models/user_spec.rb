@@ -102,4 +102,21 @@ describe User do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
   end
+
+  describe "subject associations" do
+    before { @user.save }
+    let!(:e_subject) do
+      @user.subjects.build(name: "english")
+    end
+    let!(:m_subject) do
+      @user.subjects.build(name: "math")
+    end
+    it "user should have subject" do
+      subjects = @user.subjects.to_a
+      subjects.each do |subject|
+        expect(subject.name).not_to be_empty
+      end      
+    end
+
+  end
 end
