@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    if signed_in?
+      @subject  = @user.subjects.build
+    end
   end
 
   def new

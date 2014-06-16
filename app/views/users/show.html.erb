@@ -5,4 +5,9 @@
 </h1>
 <input type="radio" name="mode" value="英語" checked><label>英語</label><br>
 <input type="radio" name="mode" value="プログラム"><label>プログラム</label><br>
+<% if signed_in? %>
+  <section>
+    <%= render 'shared/subject_form' %>
+  </section>
+<% end %>
 <div id=calendar>Calendar</div>

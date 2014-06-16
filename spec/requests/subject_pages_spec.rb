@@ -8,7 +8,6 @@ describe "Subjects pages" do
   before { sign_in user }
 
   describe "subject creation" do
-    before { visit root_path }
 
     describe "with invalid information" do
 
@@ -30,4 +29,4 @@ describe "Subjects pages" do
       end
     end
   end
-end
+end

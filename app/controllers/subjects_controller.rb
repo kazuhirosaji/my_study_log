@@ -8,6 +8,7 @@ class SubjectsController < ApplicationController
       flash[:success] = "New Subject created!"
       redirect_to root_url
     else
+      flash.now[:error] = 'error. Invalid subject name'
       render 'static_pages/home'
     end
   end
@@ -20,7 +21,7 @@ class SubjectsController < ApplicationController
   private
 
     def subject_params
-      params.require(:micropost).permit(:name)
+      params.require(:subject).permit(:name)
     end
 
     def correct_user
