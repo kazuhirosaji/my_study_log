@@ -4,14 +4,15 @@ class SubjectsController < ApplicationController
 
   def create
     @subject = current_user.subjects.build(subject_params)
+    @user = current_user
     if @subject.save
       flash[:success] = "New Subject created!"
-      redirect_to root_url
     else
-      flash.now[:error] = 'error. Invalid subject name'
-      render 'static_pages/home'
+      flash[:error] = 'Error: Invalid subject name'
     end
+    redirect_to current_user
   end
+
 
   def destroy
     @subject.destroy

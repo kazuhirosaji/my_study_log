@@ -17,7 +17,7 @@ describe "Subjects pages" do
 
       describe "error messages" do
         before { click_button "create new subject" }
-        it { should have_content('error') }
+        it { should have_content('Error') }
       end
     end
 
