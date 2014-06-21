@@ -1,4 +1,4 @@
-<%= form_for @user.subjects do |f| %>
+<%= form_for @subject do |f| %>
   <%= f.label :id %>
-  <%= f.collection_select :id, Subject.all, :id, :name %>
-<%- end -%>
+  <%= f.collection_select :id, @user.subjects, :id, :name %>
+<% end %>

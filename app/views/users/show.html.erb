@@ -4,17 +4,12 @@
 <%= @user.name %>
 </h1>
 <% if signed_in? %>
-  <%= form_for @subject do |f| %>
-    <%= f.label :id %>
-    <%= f.collection_select :id, @user.subjects, :id, :name %>
-  <% end %>
-<% end %>
-
-<input type="radio" name="mode" value="英語" checked><label>英語</label><br>
-<input type="radio" name="mode" value="プログラム"><label>プログラム</label><br>
-<% if signed_in? %>
+  <%= render 'shared/subject' %>
   <section>
     <%= render 'shared/subject_form' %>
   </section>
 <% end %>
+
+<input type="radio" name="mode" value="英語" checked><label>英語</label><br>
+<input type="radio" name="mode" value="プログラム"><label>プログラム</label><br>
 <div id=calendar>Calendar</div>
