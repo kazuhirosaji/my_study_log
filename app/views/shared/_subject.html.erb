@@ -1,0 +1,4 @@
+<%= form_for @user.subjects do |f| %>
+  <%= f.label :id %>
+  <%= f.collection_select :id, Subject.all, :id, :name %>
+<%- end -%>
