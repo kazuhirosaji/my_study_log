@@ -6,7 +6,7 @@ $ ->
 
 
     dayClick : (date, allDay, jsEvent, view) ->
-      mode = $('input[name="mode"]:checked').val()
+      mode = $('#subject_id').val()
       $('#calendar').fullCalendar('addEventSource', [{
         title: mode,
         start: date,
