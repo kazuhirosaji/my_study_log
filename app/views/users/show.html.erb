@@ -4,12 +4,13 @@
 <%= @user.name %>
 </h1>
 <% if signed_in? %>
-  <%= render 'shared/subject' %>
   <section>
     <%= render 'shared/subject_form' %>
   </section>
+  <% if have_subject?(@user) %>
+    <%= render 'shared/subject' %>
+    <div id=calendar>Calendar</div>
+  <% end %>
 <% end %>
 
-<input type="radio" name="mode" value="英語" checked><label>英語</label><br>
-<input type="radio" name="mode" value="プログラム"><label>プログラム</label><br>
-<div id=calendar>Calendar</div>
+
