@@ -30,4 +30,12 @@ describe Subject do
     it { should_not be_valid }
   end
 
+  describe "when subject name is alerady taken" do
+    before do
+      subject_with_same_name = @subject.dup
+      subject_with_same_name.save
+    end
+    it { should_not be_valid }
+  end
+
 end
