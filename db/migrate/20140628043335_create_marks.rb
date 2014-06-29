@@ -6,5 +6,6 @@ class CreateMarks < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :marks, [:subject_id]
   end
 end
