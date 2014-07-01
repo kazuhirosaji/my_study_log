@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20140628043335) do
     t.datetime "updated_at"
   end
 
+  add_index "marks", ["subject_id"], name: "index_marks_on_subject_id"
+
   create_table "subjects", force: true do |t|
     t.string   "name"
     t.integer  "user_id"
