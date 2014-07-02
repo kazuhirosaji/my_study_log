@@ -22,5 +22,10 @@ describe Mark do
     before { @mark.subject_id = nil }
     it { should_not be_valid }
   end
+
+  describe "when date value is not date format" do
+    before { @mark.date = "Wed Jun 041 20144 00:00:00 GMT-0700"}
+    it { should_not be_valid }
+  end
   
 end
