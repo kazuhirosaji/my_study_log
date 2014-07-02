@@ -27,7 +27,6 @@ $ ->
   $('#calendar').fullCalendar
     defaultView: 'month'
     editable : true
-    disableDragging: true
 
     dayClick : (date, allDay, jsEvent, view) ->
       mode = $('#subject_id').val()

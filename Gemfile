@@ -41,4 +41,4 @@ group :production do
 end
 
 gem 'fullcalendar-rails'
-
+gem 'jquery-ui-rails'
