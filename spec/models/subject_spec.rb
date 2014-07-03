@@ -38,4 +38,21 @@ describe Subject do
     it { should_not be_valid }
   end
 
+  describe "when one user have same subject names" do
+    before do
+      subject_with_same_name = user.subjects.build(name: @subject.name)
+      subject_with_same_name.save
+    end
+    it { should_not be_valid }
+  end
+
+  describe "when two user have same subject names" do
+    let(:other_user) { FactoryGirl.create(:user) }
+    before do
+      subject_with_same_name = other_user.subjects.build(name: @subject.name)
+      subject_with_same_name.save
+    end
+    it { should be_valid }
+  end
+
 end
