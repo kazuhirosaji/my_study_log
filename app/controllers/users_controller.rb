@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if signed_in?
       @subject  = @user.subjects.build
+      @mark = @subject.marks.build
     end
   end
 

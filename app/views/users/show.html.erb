@@ -7,6 +7,14 @@
   <section>
     <%= render 'shared/subject_form' %>
   </section>
+  <%= form_for(@mark) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+      <%= f.text_field :date %>
+    </div>
+    <%= f.submit "Save Events", class: "btn btn-large btn-primary" %>
+  <% end %>
+
   <input id="save" type="button" value="Save Events">
   <input id="load" type="button" value="Load Events">
   <textarea id="debug_text">test</textarea>
