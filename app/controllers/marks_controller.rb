@@ -3,14 +3,15 @@ class MarksController < ApplicationController
 # before_action :correct_user, only: :destroy
 
   def create
-    @mark = @subject.build(mark_params)
+    @subject = current_user.subjects.find_by(id: 1)
+    @mark = @subject.marks.build(mark_params)
     @user = current_user
     if @mark.save
       flash[:success] = "Saved Calendar Marks"
     else
       flash[:error] = 'Error: Calendar Marks is nil'
     end
-    red1irect_to current_user
+    redirect_to current_user
   end
 
 

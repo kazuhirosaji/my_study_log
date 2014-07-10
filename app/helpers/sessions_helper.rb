@@ -36,4 +36,8 @@ module SessionsHelper
     session[:return_to] = request.url
   end
 
+  def current_subject
+    
+  end
+
 end
