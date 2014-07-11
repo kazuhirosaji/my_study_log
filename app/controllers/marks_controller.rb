@@ -7,9 +7,9 @@ class MarksController < ApplicationController
     @mark = @subject.marks.build(mark_params)
     @user = current_user
     if @mark.save
-      flash[:success] = "Saved Calendar Marks"
+      flash[:success] = "Saved Calendar Info"
     else
-      flash[:error] = 'Error: Calendar Marks is nil'
+      flash[:error] = 'Error: Invalid Calendar Info'
     end
     redirect_to current_user
   end
