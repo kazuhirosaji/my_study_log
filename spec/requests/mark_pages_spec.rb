@@ -5,7 +5,11 @@ describe "Mark pages" do
   subject { page }
 
   let(:user) { FactoryGirl.create(:user) }
+  let(:local_subject) do
+    FactoryGirl.create(:subject, user: user)
+  end
   before { sign_in user }
+
 
   describe "mark save" do
 
@@ -24,7 +28,7 @@ describe "Mark pages" do
     describe "with valid information" do
 
       before { 
-        fill_in 'debug_text', with: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)" 
+        fill_in 'mark_date', with: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)" 
         # select subject to english
       }
       it "should create a mark" do

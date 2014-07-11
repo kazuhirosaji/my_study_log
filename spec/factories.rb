@@ -9,5 +9,6 @@ FactoryGirl.define do
   factory :subject do
     name "programing"
     user
+    id 1
   end
 end

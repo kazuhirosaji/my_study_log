@@ -4,12 +4,16 @@ class MarksController < ApplicationController
 
   def create
     @subject = current_user.subjects.find_by(id: 1)
-    @mark = @subject.marks.build(mark_params)
-    @user = current_user
-    if @mark.save
-      flash[:success] = "Saved Calendar Info"
+    if @subject
+      @mark = @subject.marks.build(mark_params)
+      @user = current_user
+      if @mark.save
+        flash[:success] = 'Saved Calendar Info'
+      else
+        flash[:error] = 'Error: Invalid Calendar Info'
+      end
     else
-      flash[:error] = 'Error: Invalid Calendar Info'
+      flash[:error] = 'Error: unfind subject'
     end
     redirect_to current_user
   end
