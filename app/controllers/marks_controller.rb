@@ -3,7 +3,7 @@ class MarksController < ApplicationController
 # before_action :correct_user, only: :destroy
 
   def create
-    @subject = current_user.subjects.find_by(id: 1)
+    @subject = current_user.subjects.find_by(id: params[:mark][:subject_id])
     if @subject
       @mark = @subject.marks.build(mark_params)
       @user = current_user
@@ -27,7 +27,7 @@ class MarksController < ApplicationController
   private
 
     def mark_params
-      params.require(:mark).permit(:date)
+      params.require(:mark).permit(:date, :subject_id)
     end
 
 end
