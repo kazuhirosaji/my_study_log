@@ -4,5 +4,6 @@
     <%= f.text_field :date %>
     <%= f.text_field :subject_id %>
   </div>
+  <%= get_subject_id @user, "english" %>
   <%= f.submit "Save Events", class: "btn btn-large btn-primary" %>
 <% end %>

@@ -9,4 +9,5 @@ module UsersHelper
   def have_subject?(user)
     user.subjects.count > 0
   end
+
 end
