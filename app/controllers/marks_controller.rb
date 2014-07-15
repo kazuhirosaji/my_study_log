@@ -3,7 +3,7 @@ class MarksController < ApplicationController
 # before_action :correct_user, only: :destroy
 
   def create
-    @subject = current_user.subjects.find_by(id: params[:mark][:subject_id])
+    @subject = current_user.subjects.find_by(name: params[:mark_subject_name])
     if @subject
       @mark = @subject.marks.build(mark_params)
       @user = current_user

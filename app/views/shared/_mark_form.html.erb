@@ -2,8 +2,7 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_field :date %>
-    <%= f.text_field :subject_id %>
+    <%= text_field_tag :mark_subject_name %>
   </div>
-  <%= get_subject_id @user, "english" %>
   <%= f.submit "Save Events", class: "btn btn-large btn-primary" %>
 <% end %>

@@ -31,7 +31,7 @@ describe "Mark pages" do
       describe "invalid subject name" do
         before { 
           fill_in 'mark_date', with: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)" 
-          fill_in 'mark_subject_id', with: 0
+          fill_in 'mark_subject_name', with: "dummy name"
         }
         it "should not create a mark" do
           expect { click_button "Save Events" }.not_to change(Mark, :count)
@@ -46,7 +46,7 @@ describe "Mark pages" do
     describe "with valid information" do
       before { 
         fill_in 'mark_date', with: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)" 
-        fill_in 'mark_subject_id', with: @subject.id
+        fill_in 'mark_subject_name', with: @subject.name
       }
       it "should create a mark" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(1)
