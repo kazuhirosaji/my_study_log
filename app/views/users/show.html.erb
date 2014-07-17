@@ -3,12 +3,12 @@
 <%= gravatar_for @user %>
 <%= @user.name %>
 </h1>
+<%= date_infos(@user) %>
 <% if signed_in? %>
   <section>
     <%= render 'shared/subject_form' %>
   </section>
   <%= render 'shared/mark_form' %>
-
   <textarea id="debug_text">test</textarea>
   <% if have_subject?(@user) %>
     <%= render 'shared/subject' %>

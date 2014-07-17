@@ -10,4 +10,9 @@ module UsersHelper
     user.subjects.count > 0
   end
 
+  def date_infos(user)
+#    user.subjects.
+    "programing"
+  end
+
 end
