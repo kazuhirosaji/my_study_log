@@ -13,7 +13,7 @@ class MarksController < ApplicationController
         flash[:error] = 'Error: Invalid Calendar Info'
       end
     else
-      flash[:error] = 'Error: unfind subject'
+      flash[:error] = 'Error: not find subject'
     end
     redirect_to current_user
   end
