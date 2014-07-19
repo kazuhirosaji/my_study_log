@@ -7,16 +7,11 @@ describe "User pages" do
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
     before do
-      @subject = user.subjects.build(name: "programing")
-      @subject.save
-      @mark = @subject.marks.build(subject_id: @subject.id, date: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)" )
-      @mark.save
       visit user_path(user)
     end
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
-    it { should have_content(@subject.name) }
   end
 
   describe "signup page" do

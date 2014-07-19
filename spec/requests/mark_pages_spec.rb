@@ -10,13 +10,13 @@ describe "Mark pages" do
   subject { page }
 
   let(:user) { FactoryGirl.create(:user) }
-  before do
-    sign_in user
-    @subject = user.subjects.build(name: "programing")
-    @subject.save
-  end
 
   describe "mark save" do
+    before do
+      sign_in user
+      @subject = user.subjects.build(name: "programing")
+      @subject.save
+    end
 
     describe "with invalid information" do
 
@@ -52,6 +52,18 @@ describe "Mark pages" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(1)
       end
     end
+  end
+
+  describe "mark save" do
+    before do
+      @subject = user.subjects.build(name: "programing")
+      @subject.save
+      @mark = @subject.marks.build(subject_id: @subject.id, date: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)" )
+      @mark.save
+      sign_in user
+    end
+    it { should have_content(@subject.name) }
+#   it { should have_content(@subject.date) }
   end
 end
 
