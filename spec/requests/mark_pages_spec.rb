@@ -58,12 +58,18 @@ describe "Mark pages" do
     before do
       @subject = user.subjects.build(name: "programing")
       @subject.save
-      @mark = @subject.marks.build(subject_id: @subject.id, date: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)" )
-      @mark.save
+      @mark = []
+      time_info = "00:00:00 GMT-0700 (PDT)"
+      @mark[0] = @subject.marks.build(subject_id: @subject.id, date: "Wed Jun 04 2014 #{time_info}" )
+      @mark[1] = @subject.marks.build(subject_id: @subject.id, date: "Thu Jun 05 2014 #{time_info}" )
+      @mark.each do |mark|
+        mark.save
+      end
       sign_in user
     end
     it { should have_content(@subject.name) }
-    it { should have_content(@mark.date) }
+    it { should have_content(@mark[0].date) }
+    it { should have_content(@mark[1].date) }
   end
 end
 

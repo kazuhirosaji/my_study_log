@@ -11,7 +11,16 @@ module UsersHelper
   end
 
   def date_infos(user)
-    "programing : Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)"
+    infos = []
+    user.subjects.each do |subject|
+      break if subject.name.nil? 
+      marks = subject.marks
+      marks.each do |mark|
+        break if mark.date.nil?
+        infos << "#{subject.name} : #{mark.date}"
+      end
+    end
+    infos
   end
 
 end
