@@ -11,8 +11,7 @@ module UsersHelper
   end
 
   def date_infos(user)
-#    user.subjects.
-    "programing"
+    "programing : Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)"
   end
 
 end

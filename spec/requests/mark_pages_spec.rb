@@ -63,7 +63,7 @@ describe "Mark pages" do
       sign_in user
     end
     it { should have_content(@subject.name) }
-#   it { should have_content(@subject.date) }
+    it { should have_content(@mark.date) }
   end
 end
 

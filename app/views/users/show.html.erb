@@ -3,7 +3,6 @@
 <%= gravatar_for @user %>
 <%= @user.name %>
 </h1>
-<%= date_infos(@user) %>
 <% if signed_in? %>
   <section>
     <%= render 'shared/subject_form' %>
@@ -11,6 +10,7 @@
   <%= render 'shared/mark_form' %>
   <textarea id="debug_text">test</textarea>
   <% if have_subject?(@user) %>
+    <%= date_infos(@user) %>
     <%= render 'shared/subject' %>
     <div id=calendar>Calendar</div>
   <% end %>
