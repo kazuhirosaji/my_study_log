@@ -11,13 +11,13 @@ module UsersHelper
   end
 
   def date_infos(user)
-    infos = []
+    infos = ""
     user.subjects.each do |subject|
       break if subject.name.nil? 
       marks = subject.marks
       marks.each do |mark|
         break if mark.date.nil?
-        infos << "#{subject.name} : #{mark.date}"
+        infos += "#{subject.name} , #{mark.date}\n"
       end
     end
     infos

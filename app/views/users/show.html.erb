@@ -8,9 +8,9 @@
     <%= render 'shared/subject_form' %>
   </section>
   <%= render 'shared/mark_form' %>
-  <textarea id="debug_text">test</textarea>
+  <button id="load" class="btn btn-large btn-primary">Load Events</button>
+  <textarea id="debug_text"><%= date_infos(@user) %></textarea>
   <% if have_subject?(@user) %>
-    <%= date_infos(@user) %>
     <%= render 'shared/subject' %>
     <div id=calendar>Calendar</div>
   <% end %>
