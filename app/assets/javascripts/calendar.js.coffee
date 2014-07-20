@@ -22,16 +22,17 @@ $ ->
     eventClick: (calEvent, jsEvent, view) ->
       $('#calendar').fullCalendar('removeEvents', calEvent._id)
 
-    # Load Calendar data from Marks and Subjects Model
-    events = $("#debug_text").get(0).value.split("\n")
-    $.each(events, (id, event) ->
-      detail = event.split(",")
-      if (detail[1])
-        $('#calendar').fullCalendar('addEventSource', [{
-          title: detail[0],
-          start: detail[1],
-          allDay: true
-        }])
-    )
+  # Load Calendar data from Marks and Subjects Model
+  events = $("#debug_text").get(0).value.split("\n")
+  $.each(events, (id, event) ->
+    detail = event.split(",")
+    if (detail[1])
+      alert(detail[0])
+      $('#calendar').fullCalendar('addEventSource', [{
+        title: detail[0],
+        start: detail[1],
+        allDay: true
+      }])
+  )
 
 
