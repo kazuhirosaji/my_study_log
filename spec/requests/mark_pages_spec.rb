@@ -64,6 +64,17 @@ describe "Mark pages" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(2)
       end
     end
+
+    describe "duplicate information" do
+      before { 
+        fill_in 'mark_date', with: "Wed Jun 04 2014 #{time_info} , Wed Jun 04 2014 #{time_info}" 
+        fill_in 'mark_subject_name', with: @subject.name + " , " + @subject.name
+      }
+      it "should create only 1 mark" do
+        expect { click_button "Save Events" }.to change(Mark, :count).by(1)
+      end
+    end
+
   end
 
   describe "mark load" do

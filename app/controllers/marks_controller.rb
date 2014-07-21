@@ -12,7 +12,6 @@ class MarksController < ApplicationController
       subject = current_user.subjects.find_by(name: name)
       if subject
         mark = subject.marks.build(date: dates[i])
-        user = current_user
         if !mark.save
           error_message += "Error: Invalid Date Info #{dates[i]}\n"
         end
