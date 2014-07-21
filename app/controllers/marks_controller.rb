@@ -11,10 +11,7 @@ class MarksController < ApplicationController
     names.each do |name|
       subject = current_user.subjects.find_by(name: name)
       if subject
-        mark = subject.marks.build(date: dates[i])
-        if !mark.save
-          error_message += "Error: Invalid Date Info #{dates[i]}\n"
-        end
+        subject.marks.create(date: dates[i])
       else
         error_message += 'Error: Subject #{name} not found\n'
       end
