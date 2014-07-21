@@ -3,17 +3,30 @@ class MarksController < ApplicationController
 # before_action :correct_user, only: :destroy
 
   def create
-    @subject = current_user.subjects.find_by(name: params[:mark_subject_name])
-    if @subject
-      @mark = @subject.marks.build(mark_params)
-      @user = current_user
-      if @mark.save
-        flash[:success] = 'Saved Calendar Info'
+    names, dates = []
+    i = 0
+    names = params[:mark_subject_name].split(/\s*,\s*/)
+    dates = params[:mark][:date].split(/\s*,\s*/)
+    error_message = ""
+    names.each do |name|
+      subject = current_user.subjects.find_by(name: name)
+      if subject
+        mark = subject.marks.build(date: dates[i])
+        user = current_user
+        if !mark.save
+          error_message += "Error: Invalid Date Info #{dates[i]}\n"
+        end
       else
-        flash[:error] = 'Error: Invalid Calendar Info'
+        error_message += 'Error: Subject #{name} not found\n'
       end
+      i += 1
+    end
+    error_message = "Error: Please input calendar events"  if names.size == 0
+
+    if error_message == ""
+      flash[:success] = 'Saved Calendar Info'
     else
-      flash[:error] = 'Error: Subject not found'
+      flash[:error] = error_message
     end
     redirect_to current_user
   end
@@ -27,7 +40,7 @@ class MarksController < ApplicationController
   private
 
     def mark_params
-      params.require(:mark).permit(:date, :subject_id)
+      params.require(:mark).permit(:date)
     end
 
 end
