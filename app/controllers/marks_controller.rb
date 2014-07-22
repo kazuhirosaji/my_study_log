@@ -17,10 +17,10 @@ class MarksController < ApplicationController
       end
       i += 1
     end
-    error_message = "Error: Please input calendar events"  if names.size == 0
+    error_message = "Error: Please input calendar events."  if names.size == 0
 
     if error_message == ""
-      flash[:success] = 'Saved Calendar Info'
+      flash[:success] = 'Saved Calendar Info.'
     else
       flash[:error] = error_message
     end
