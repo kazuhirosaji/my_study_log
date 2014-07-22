@@ -13,7 +13,7 @@ class MarksController < ApplicationController
       if subject
         subject.marks.create(date: dates[i])
       else
-        error_message += 'Error: Subject #{name} not found\n'
+        error_message += 'Error: Subject #{name} not found. '
       end
       i += 1
     end
