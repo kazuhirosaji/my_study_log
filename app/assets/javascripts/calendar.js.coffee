@@ -2,8 +2,7 @@ $ ->
   $('#save').click ->
     mem = $('#calendar').fullCalendar('clientEvents')
     $.each(mem, ( index, value ) ->
-      $('#mark_date').get(0).value += value.start + ","
-      $('#mark_subject_name').get(0).value += value.title + ","
+      $('#mark_subjects').get(0).value +=  value.title + " | " + value.start + " , "
     )
 
 $ ->

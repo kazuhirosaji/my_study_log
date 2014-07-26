@@ -31,8 +31,7 @@ describe "Mark pages" do
 
       describe "invalid subject name" do
         before { 
-          fill_in 'mark_date', with: "Wed Jun 04 2014 #{time_info}" 
-          fill_in 'mark_subject_name', with: "dummy name"
+          fill_in 'mark_subjects', with: "dummy name | Wed Jun 04 2014 #{time_info}" 
         }
         it "should not create a mark" do
           expect { click_button "Save Events" }.not_to change(Mark, :count)
@@ -46,8 +45,7 @@ describe "Mark pages" do
 
     describe "with valid information" do
       before { 
-        fill_in 'mark_date', with: "Wed Jun 04 2014 #{time_info}" 
-        fill_in 'mark_subject_name', with: @subject.name
+        fill_in 'mark_subjects', with: @subject.name + " | Wed Jun 04 2014 #{time_info}"
       }
       it "should create a mark" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(1)
@@ -57,24 +55,23 @@ describe "Mark pages" do
       before { 
         other_subject = user.subjects.build(name: "english")
         other_subject.save
-        fill_in 'mark_date', with: "Wed Jun 04 2014 #{time_info} , Thu Jun 05 2014 #{time_info}" 
-        fill_in 'mark_subject_name', with: @subject.name + " , " + other_subject.name
+        fill_in 'mark_subjects', 
+          with: @subject.name + "| Wed Jun 04 2014 #{time_info} ," + other_subject.name + "| Thu Jun 05 2014 #{time_info} ," 
       }
       it "should create a mark" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(2)
       end
     end
 
+
     describe "duplicate information" do
       before { 
-        fill_in 'mark_date', with: "Wed Jun 04 2014 #{time_info} , Wed Jun 04 2014 #{time_info}" 
-        fill_in 'mark_subject_name', with: @subject.name + " , " + @subject.name
+        fill_in 'mark_subjects', with: @subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Wed Jun 04 2014 #{time_info} ," 
       }
       it "should create only 1 mark" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(1)
       end
     end
-
   end
 
   describe "mark load" do

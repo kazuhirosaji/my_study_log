@@ -1,8 +1,7 @@
 <%= form_for(@mark) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_field :date %>
-    <%= text_field_tag :mark_subject_name  %>
+    <%= text_field_tag :mark_subjects  %>
   </div>
   <%= f.submit "Save Events", id: "save", class: "btn btn-large btn-primary" %>
 <% end %>
