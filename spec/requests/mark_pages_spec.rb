@@ -63,6 +63,16 @@ describe "Mark pages" do
       end
     end
 
+    describe "decrease mark" do
+      before { 
+        fill_in 'mark_subjects', with: @subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Thu Jun 05 2014 #{time_info} ," 
+        click_button "Save Events"
+        fill_in 'mark_subjects', with: @subject.name + "| Wed Jun 04 2014 #{time_info}" 
+      }
+      it "should decrease mark count" do
+        expect { click_button "Save Events" }.to change(Mark, :count).by(-1)
+      end
+    end
 
     describe "duplicate information" do
       before { 

@@ -11,18 +11,33 @@ class MarksController < ApplicationController
     error_message = ""
     current_name = ""
     subject = nil
+    ids = []
+    dates = []
+
     events.each do |event|
       name , date = event.split(/\s*\|\s*/)
       if name != current_name
+        current_name = name
+        if dates.length > 0
+          subject.marks.where.not(date: dates).delete_all
+          dates = []
+        end
         subject = current_user.subjects.find_by(name: name)
       end
+      dates << date
       if subject
         subject.marks.create(date: date)
+        ids << subject.id
       else
         error_message += 'Error: Subject #{e[:n]} not found. '
       end
     end
-    #subject.marks.where.not("date = 'Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)'").delete_all
+    if subject != nil && dates.length > 0
+      subject.marks.where.not(date: dates).delete_all
+      dates = []
+    end
+
+    current_user.subjects.where.not(id: ids).delete_all
     error_message = "Error: Please input calendar events."  if events.size == 0
 
     if error_message == ""
