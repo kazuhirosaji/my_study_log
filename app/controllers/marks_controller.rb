@@ -3,7 +3,7 @@ class MarksController < ApplicationController
 # before_action :correct_user, only: :destroy
 
   def create
-    events, save_dates, @save_ids = [], [], []
+    events, @save_dates, @save_ids = [], [], []
     events = params[:mark_subjects].split(/\s*,\s*/)
     events.sort!
 
@@ -17,21 +17,20 @@ class MarksController < ApplicationController
       name , date = event.split(/\s*\|\s*/)
       if name != current_name
         current_name = name
-        if save_dates.length > 0
-          subject.marks.where.not(date: save_dates).delete_all
-          save_dates = []
+        if @save_dates.length > 0
+          subject.marks.where.not(date: @save_dates).delete_all
+          @save_dates = []
         end
-        subject = get_subject_by_name name
+        subject = get_subject_by_name(name)
       end
 
       if subject
-        subject.marks.create(date: date)
-        save_dates << date
+        create_mark(subject, date)
       end
     end
 
-    if subject != nil && save_dates.length > 0
-      subject.marks.where.not(date: save_dates).delete_all
+    if subject != nil && @save_dates.length > 0
+      subject.marks.where.not(date: @save_dates).delete_all
     end
     current_user.subjects.where.not(id: @save_ids).delete_all
 
@@ -68,6 +67,10 @@ class MarksController < ApplicationController
           @error_message += 'Error: Subject #{name} not found. '
         end
         subject
+    end
+    def create_mark(subject, date)
+      subject.marks.create(date: date)
+      @save_dates << date
     end
 
 end
