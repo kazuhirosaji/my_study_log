@@ -3,41 +3,38 @@ class MarksController < ApplicationController
 # before_action :correct_user, only: :destroy
 
   def create
-    events = []
-    i = 0
+    events, save_dates, save_ids = [], [], []
     events = params[:mark_subjects].split(/\s*,\s*/)
     events.sort!
 
     error_message = ""
     current_name = ""
     subject = nil
-    ids = []
-    dates = []
 
     events.each do |event|
       name , date = event.split(/\s*\|\s*/)
       if name != current_name
         current_name = name
-        if dates.length > 0
-          subject.marks.where.not(date: dates).delete_all
-          dates = []
+        if save_dates.length > 0
+          subject.marks.where.not(date: save_dates).delete_all
+          save_dates = []
         end
         subject = current_user.subjects.find_by(name: name)
       end
-      dates << date
+      save_dates << date
       if subject
         subject.marks.create(date: date)
-        ids << subject.id
+        save_ids << subject.id
       else
         error_message += 'Error: Subject #{e[:n]} not found. '
       end
     end
-    if subject != nil && dates.length > 0
-      subject.marks.where.not(date: dates).delete_all
-      dates = []
+    if subject != nil && save_dates.length > 0
+      subject.marks.where.not(date: save_dates).delete_all
+      save_dates = []
     end
 
-    current_user.subjects.where.not(id: ids).delete_all
+    current_user.subjects.where.not(id: save_ids).delete_all
     error_message = "Error: Please input calendar events."  if events.size == 0
     flash_message(error_message)
 
