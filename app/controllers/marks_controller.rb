@@ -39,12 +39,8 @@ class MarksController < ApplicationController
 
     current_user.subjects.where.not(id: ids).delete_all
     error_message = "Error: Please input calendar events."  if events.size == 0
+    flash_message(error_message)
 
-    if error_message == ""
-      flash[:success] = 'Saved Calendar Info.'
-    else
-      flash[:error] = error_message
-    end
     redirect_to current_user
   end
 
@@ -58,6 +54,14 @@ class MarksController < ApplicationController
 
     def mark_params
       params.require(:mark).permit(:date)
+    end
+
+    def flash_message(error_message)
+      if error_message == ""
+        flash[:success] = 'Saved Calendar Info.'
+      else
+        flash[:error] = error_message
+      end    
     end
 
 end
