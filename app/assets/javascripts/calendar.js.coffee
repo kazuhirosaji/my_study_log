@@ -26,7 +26,6 @@ $ ->
   $.each(events, (id, event) ->
     detail = event.split(",")
     if (detail[1])
-      alert(detail[0])
       $('#calendar').fullCalendar('addEventSource', [{
         title: detail[0],
         start: detail[1],
