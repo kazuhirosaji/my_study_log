@@ -3,13 +3,15 @@ class MarksController < ApplicationController
 # before_action :correct_user, only: :destroy
 
   def create
-    events, save_dates, save_ids = [], [], []
+    events, save_dates, @save_ids = [], [], []
     events = params[:mark_subjects].split(/\s*,\s*/)
     events.sort!
 
-    error_message = ""
+    @error_message = ""
     current_name = ""
     subject = nil
+
+    @error_message = "Error: Please input calendar events."  if events.size == 0
 
     events.each do |event|
       name , date = event.split(/\s*\|\s*/)
@@ -19,24 +21,21 @@ class MarksController < ApplicationController
           subject.marks.where.not(date: save_dates).delete_all
           save_dates = []
         end
-        subject = current_user.subjects.find_by(name: name)
+        subject = get_subject_by_name name
       end
-      save_dates << date
+
       if subject
         subject.marks.create(date: date)
-        save_ids << subject.id
-      else
-        error_message += 'Error: Subject #{e[:n]} not found. '
+        save_dates << date
       end
     end
+
     if subject != nil && save_dates.length > 0
       subject.marks.where.not(date: save_dates).delete_all
-      save_dates = []
     end
+    current_user.subjects.where.not(id: @save_ids).delete_all
 
-    current_user.subjects.where.not(id: save_ids).delete_all
-    error_message = "Error: Please input calendar events."  if events.size == 0
-    flash_message(error_message)
+    flash_message
 
     redirect_to current_user
   end
@@ -53,12 +52,22 @@ class MarksController < ApplicationController
       params.require(:mark).permit(:date)
     end
 
-    def flash_message(error_message)
-      if error_message == ""
+    def flash_message
+      if @error_message == ""
         flash[:success] = 'Saved Calendar Info.'
       else
-        flash[:error] = error_message
+        flash[:error] = @error_message
       end    
+    end
+    
+    def get_subject_by_name(name)
+        subject = current_user.subjects.find_by(name: name)
+        if subject
+          @save_ids << subject.id
+        else
+          @error_message += 'Error: Subject #{name} not found. '
+        end
+        subject
     end
 
 end
