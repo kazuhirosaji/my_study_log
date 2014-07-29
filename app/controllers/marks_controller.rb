@@ -17,10 +17,7 @@ class MarksController < ApplicationController
       name , date = event.split(/\s*\|\s*/)
       if name != current_name
         current_name = name
-        if @save_dates.length > 0
-          subject.marks.where.not(date: @save_dates).delete_all
-          @save_dates = []
-        end
+        delete_unsaved_marks(subject)
         subject = get_subject_by_name(name)
       end
 
@@ -29,11 +26,8 @@ class MarksController < ApplicationController
       end
     end
 
-    if subject != nil && @save_dates.length > 0
-      subject.marks.where.not(date: @save_dates).delete_all
-    end
+    delete_unsaved_marks(subject)
     current_user.subjects.where.not(id: @save_ids).delete_all
-
     flash_message
 
     redirect_to current_user
@@ -72,6 +66,14 @@ class MarksController < ApplicationController
       subject.marks.create(date: date)
       @save_dates << date
     end
+
+    def delete_unsaved_marks(subject)
+      if subject != nil && @save_dates.length > 0
+        subject.marks.where.not(date: @save_dates).delete_all
+        @save_dates = []
+      end
+    end
+
 
 end
 
