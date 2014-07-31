@@ -52,7 +52,7 @@ describe "Mark pages" do
       end
     end
     describe "with 2 valid information" do
-      before { 
+      before {
         other_subject = user.subjects.build(name: "english")
         other_subject.save
         fill_in 'mark_subjects', 
@@ -71,6 +71,18 @@ describe "Mark pages" do
       }
       it "should decrease mark count" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(-1)
+      end
+      
+      describe "decrease unused subjects.mark" do
+        before { 
+          click_button "Save Events"
+          other_subject = user.subjects.build(name: "english")
+          other_subject.save
+          fill_in 'mark_subjects', with: other_subject.name + "| Wed Jun 04 2014 #{time_info}" 
+        }
+        it "should decrease"  do
+          expect { click_button "Save Events" }.to change(Mark, :count).by(0)
+        end
       end
     end
 

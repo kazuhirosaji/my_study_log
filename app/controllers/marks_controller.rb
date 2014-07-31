@@ -27,7 +27,10 @@ class MarksController < ApplicationController
     end
 
     delete_unsaved_marks(subject)
-    current_user.subjects.where.not(id: @save_ids).delete_all
+    current_user.subjects.where.not(id: @save_ids).each do |sbj|
+      sbj.marks.delete_all
+    end
+
     flash_message
 
     redirect_to current_user
@@ -62,6 +65,7 @@ class MarksController < ApplicationController
         end
         subject
     end
+
     def create_mark(subject, date)
       subject.marks.create(date: date)
       @save_dates << date
