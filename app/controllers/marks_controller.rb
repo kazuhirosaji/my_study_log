@@ -11,7 +11,12 @@ class MarksController < ApplicationController
     current_name = ""
     subject = nil
 
-    @error_message = "Error: Please input calendar events."  if events.size == 0
+    if  events.size == 0
+      @error_message = "Error: not changed"
+      flash_message
+      redirect_to current_user
+      return
+    end
 
     events.each do |event|
       name , date = event.split(/\s*\|\s*/)
