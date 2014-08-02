@@ -31,7 +31,7 @@ describe "Mark pages" do
 
       describe "invalid subject name" do
         before { 
-          fill_in 'mark_subjects', with: "dummy name | Wed Jun 04 2014 #{time_info}" 
+          find("#mark_subjects").set("dummy name | Wed Jun 04 2014 #{time_info}")
         }
         it "should not create a mark" do
           expect { click_button "Save Events" }.not_to change(Mark, :count)
@@ -45,7 +45,7 @@ describe "Mark pages" do
 
     describe "with valid information" do
       before { 
-        fill_in 'mark_subjects', with: @subject.name + " | Wed Jun 04 2014 #{time_info}"
+        find("#mark_subjects").set(@subject.name + " | Wed Jun 04 2014 #{time_info}")
       }
       it "should create a mark" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(1)
@@ -55,8 +55,7 @@ describe "Mark pages" do
       before {
         other_subject = user.subjects.build(name: "english")
         other_subject.save
-        fill_in 'mark_subjects', 
-          with: @subject.name + "| Wed Jun 04 2014 #{time_info} ," + other_subject.name + "| Thu Jun 05 2014 #{time_info} ," 
+        find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info} ," + other_subject.name + "| Thu Jun 05 2014 #{time_info} ,")
       }
       it "should create a mark" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(2)
@@ -65,9 +64,10 @@ describe "Mark pages" do
 
     describe "decrease mark" do
       before { 
-        fill_in 'mark_subjects', with: @subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Thu Jun 05 2014 #{time_info} ," 
+
+        find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Thu Jun 05 2014 #{time_info} ,")
         click_button "Save Events"
-        fill_in 'mark_subjects', with: @subject.name + "| Wed Jun 04 2014 #{time_info}" 
+        find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info}")
       }
       it "should decrease mark count" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(-1)
@@ -78,7 +78,7 @@ describe "Mark pages" do
           click_button "Save Events"
           other_subject = user.subjects.build(name: "english")
           other_subject.save
-          fill_in 'mark_subjects', with: other_subject.name + "| Wed Jun 04 2014 #{time_info}" 
+          find("#mark_subjects").set(other_subject.name + "| Wed Jun 04 2014 #{time_info}")
         }
         it "should decrease"  do
           expect { click_button "Save Events" }.to change(Mark, :count).by(0)
@@ -88,7 +88,7 @@ describe "Mark pages" do
 
     describe "duplicate information" do
       before { 
-        fill_in 'mark_subjects', with: @subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Wed Jun 04 2014 #{time_info} ," 
+        find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Wed Jun 04 2014 #{time_info} ,")
       }
       it "should create only 1 mark" do
         expect { click_button "Save Events" }.to change(Mark, :count).by(1)
