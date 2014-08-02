@@ -8,7 +8,7 @@
     <%= render 'shared/subject_form' %>
   </section>
   <%= render 'shared/mark_form' %>
-  <textarea id="debug_text"><%= date_infos(@user) %></textarea>
+  <%= hidden_field_tag 'debug_text' ,  date_infos(@user) %>
   <% if have_subject?(@user) %>
     <%= render 'shared/subject' %>
     <div id=calendar>Calendar</div>

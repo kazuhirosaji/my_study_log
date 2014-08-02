@@ -107,10 +107,11 @@ describe "Mark pages" do
         mark.save
       end
       sign_in user
+      click_button "Save Events"
     end
-    it { should have_content(@subject.name) }
-    it { should have_content(@mark[0].date) }
-    it { should have_content(@mark[1].date) }
+    it "should have saved Marks" do
+      Mark.count.should == 2
+    end
   end
 end
 
