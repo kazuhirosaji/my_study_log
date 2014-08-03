@@ -9,8 +9,6 @@ describe "User pages" do
     before do
       visit user_path(user)
     end
-
-    it { should have_content(user.name) }
     it { should have_title(user.name) }
   end
 
@@ -51,6 +49,7 @@ describe "User pages" do
 
         it { should have_link('Sign out') }
         it { should have_title(user.name) }
+        it { should have_content(user.name) }
       end
     end
   end

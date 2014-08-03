@@ -3,7 +3,9 @@
     <div class="container">
       <nav>
         <ul class="nav pull-left">
-          <li><p class="user_name"><%= link_to gravatar_for @user %> <%= link_to @user.name %></p></li>
+          <% if signed_in? %>
+            <li><p class="user_name"><%= link_to gravatar_for @user %> <%= link_to @user.name %></p></li>
+          <% end %>
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
             <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
