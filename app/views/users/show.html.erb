@@ -4,14 +4,13 @@
     <div class="row">
       <div class="span3">
         <section>
-          <p>add new subject</p>
           <%= render 'shared/subject_form' %>
         </section>
-        <%= render 'shared/mark_form' %>
-        <%= hidden_field_tag 'debug_text' ,  date_infos(@user) %>
         <% if have_subject?(@user) %>
           <%= render 'shared/subject' %>
         <% end %>
+        <%= render 'shared/mark_form' %>
+        <%= hidden_field_tag 'debug_text' ,  date_infos(@user) %>
       </div>
       <div class="span9">
         <% if have_subject?(@user) %>

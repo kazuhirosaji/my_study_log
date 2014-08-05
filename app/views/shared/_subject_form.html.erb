@@ -1,7 +1,8 @@
 <%= form_for(@subject) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
+    <%= f.label "add new subject" %>
     <%= f.text_field :name %>
+    <%= f.submit "create", class: "btn btn-info" %>
   </div>
-  <%= f.submit "create new subject", class: "btn btn-large btn-primary" %>
 <% end %>

@@ -12,11 +12,11 @@ describe "Subjects pages" do
     describe "with invalid information" do
 
       it "should not create a subject" do
-        expect { click_button "create new subject" }.not_to change(Subject, :count)
+        expect { click_button "create" }.not_to change(Subject, :count)
       end
 
       describe "error messages" do
-        before { click_button "create new subject" }
+        before { click_button "create" }
         it { should have_content('Error') }
       end
     end
@@ -25,7 +25,7 @@ describe "Subjects pages" do
 
       before { fill_in 'subject_name', with: "report" }
       it "should create a subject" do
-        expect { click_button "create new subject" }.to change(Subject, :count).by(1)
+        expect { click_button "create" }.to change(Subject, :count).by(1)
       end
     end
   end
