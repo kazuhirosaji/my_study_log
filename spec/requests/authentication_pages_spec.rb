@@ -44,6 +44,11 @@ describe "Authentication" do
         before { click_link "Sign out"}
         it { should have_link('Sign in') }
       end
+
+      describe "go to homepage" do
+        before { click_link "Home"}
+        it { should have_link(user.name) }
+      end
     end
   end
 end
