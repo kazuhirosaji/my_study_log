@@ -19,7 +19,6 @@ describe "Mark pages" do
 
   share_examples_for 'Save button create mark' do
     it "should create #{@will_count_up} mark" do
-      p @will_count_up
       expect { click_button "Save Events" }.to change(Mark, :count).by(@will_count_up)
     end
   end
@@ -35,29 +34,29 @@ describe "Mark pages" do
 
       it_should_behave_like 'Save button not create a mark'
 
-      describe "error messages" do
+      context "error messages" do
         check_save_events_error
       end
 
-      describe "invalid subject name" do
+      context "invalid subject name" do
         before { 
           find("#mark_subjects").set("dummy name | Wed Jun 04 2014 #{time_info}")
         }
         it_should_behave_like 'Save button not create a mark'
-        describe "error messages" do
+        context "error messages" do
           check_save_events_error
         end
       end
     end
 
-    describe "with valid information" do
+    context "with valid information" do
       before { 
         find("#mark_subjects").set(@subject.name + " | Wed Jun 04 2014 #{time_info}")
       }
       @will_count_up = 1
       it_should_behave_like 'Save button create mark'
     end
-    describe "with 2 valid information" do
+    context "with 2 valid information" do
       before {
         other_subject = user.subjects.build(name: "english")
         other_subject.save
@@ -67,7 +66,7 @@ describe "Mark pages" do
       it_should_behave_like 'Save button create mark'
     end
 
-    describe "decrease mark" do
+    context "decrease mark" do
       before { 
 
         find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Thu Jun 05 2014 #{time_info} ,")
@@ -77,7 +76,7 @@ describe "Mark pages" do
       @will_count_up = -1
       it_should_behave_like 'Save button create mark'
       
-      describe "decrease unused subjects.mark" do
+      context "decrease unused subjects.mark" do
         before { 
           click_button "Save Events"
           other_subject = user.subjects.build(name: "english")
@@ -88,7 +87,7 @@ describe "Mark pages" do
       end
     end
 
-    describe "duplicate information" do
+    context "duplicate information" do
       before { 
         find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Wed Jun 04 2014 #{time_info} ,")
       }
@@ -97,7 +96,7 @@ describe "Mark pages" do
     end
   end
 
-  describe "mark load" do
+  context "load" do
     before do
       @subject = user.subjects.build(name: "programing")
       @subject.save
