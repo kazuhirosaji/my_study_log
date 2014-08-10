@@ -12,18 +12,22 @@ describe "Mark pages" do
   let(:user) { FactoryGirl.create(:user) }
   let(:time_info) {"00:00:00 GMT-0700 (PDT)"}
 
-  describe "mark save" do
+  share_examples_for '0 mark' do
+    it "should not create a mark" do
+      expect { click_button "Save Events" }.not_to change(Mark, :count)
+    end
+  end
+
+  context "save" do
     before do
       sign_in user
       @subject = user.subjects.build(name: "programing")
       @subject.save
     end
 
-    describe "with invalid information" do
+    context "with invalid information" do
 
-      it "should not save a mark" do
-        expect { click_button "Save Events" }.not_to change(Mark, :count)
-      end
+      it_should_behave_like '0 mark'
 
       describe "error messages" do
         check_save_events_error
@@ -33,10 +37,7 @@ describe "Mark pages" do
         before { 
           find("#mark_subjects").set("dummy name | Wed Jun 04 2014 #{time_info}")
         }
-        it "should not create a mark" do
-          expect { click_button "Save Events" }.not_to change(Mark, :count)
-        end
-
+        it_should_behave_like '0 mark'
         describe "error messages" do
           check_save_events_error
         end
@@ -80,9 +81,7 @@ describe "Mark pages" do
           other_subject.save
           find("#mark_subjects").set(other_subject.name + "| Wed Jun 04 2014 #{time_info}")
         }
-        it "should decrease"  do
-          expect { click_button "Save Events" }.to change(Mark, :count).by(0)
-        end
+        it_should_behave_like '0 mark'
       end
     end
 
