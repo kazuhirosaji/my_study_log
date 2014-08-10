@@ -8,13 +8,19 @@ end
 describe "Mark pages" do
 
   subject { page }
+  @will_count_up = 0
 
   let(:user) { FactoryGirl.create(:user) }
   let(:time_info) {"00:00:00 GMT-0700 (PDT)"}
 
-  share_examples_for '0 mark' do
-    it "should not create a mark" do
-      expect { click_button "Save Events" }.not_to change(Mark, :count)
+  share_examples_for 'Save button not create a mark' do
+    it { expect { click_button "Save Events" }.not_to change(Mark, :count) }
+  end
+
+  share_examples_for 'Save button create mark' do
+    it "should create #{@will_count_up} mark" do
+      p @will_count_up
+      expect { click_button "Save Events" }.to change(Mark, :count).by(@will_count_up)
     end
   end
 
@@ -27,7 +33,7 @@ describe "Mark pages" do
 
     context "with invalid information" do
 
-      it_should_behave_like '0 mark'
+      it_should_behave_like 'Save button not create a mark'
 
       describe "error messages" do
         check_save_events_error
@@ -37,7 +43,7 @@ describe "Mark pages" do
         before { 
           find("#mark_subjects").set("dummy name | Wed Jun 04 2014 #{time_info}")
         }
-        it_should_behave_like '0 mark'
+        it_should_behave_like 'Save button not create a mark'
         describe "error messages" do
           check_save_events_error
         end
@@ -48,9 +54,8 @@ describe "Mark pages" do
       before { 
         find("#mark_subjects").set(@subject.name + " | Wed Jun 04 2014 #{time_info}")
       }
-      it "should create a mark" do
-        expect { click_button "Save Events" }.to change(Mark, :count).by(1)
-      end
+      @will_count_up = 1
+      it_should_behave_like 'Save button create mark'
     end
     describe "with 2 valid information" do
       before {
@@ -58,9 +63,8 @@ describe "Mark pages" do
         other_subject.save
         find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info} ," + other_subject.name + "| Thu Jun 05 2014 #{time_info} ,")
       }
-      it "should create a mark" do
-        expect { click_button "Save Events" }.to change(Mark, :count).by(2)
-      end
+      @will_count_up = 2
+      it_should_behave_like 'Save button create mark'
     end
 
     describe "decrease mark" do
@@ -70,9 +74,8 @@ describe "Mark pages" do
         click_button "Save Events"
         find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info}")
       }
-      it "should decrease mark count" do
-        expect { click_button "Save Events" }.to change(Mark, :count).by(-1)
-      end
+      @will_count_up = -1
+      it_should_behave_like 'Save button create mark'
       
       describe "decrease unused subjects.mark" do
         before { 
@@ -81,7 +84,7 @@ describe "Mark pages" do
           other_subject.save
           find("#mark_subjects").set(other_subject.name + "| Wed Jun 04 2014 #{time_info}")
         }
-        it_should_behave_like '0 mark'
+        it_should_behave_like 'Save button not create a mark'
       end
     end
 
@@ -89,9 +92,8 @@ describe "Mark pages" do
       before { 
         find("#mark_subjects").set(@subject.name + "| Wed Jun 04 2014 #{time_info} ," + @subject.name + " | Wed Jun 04 2014 #{time_info} ,")
       }
-      it "should create only 1 mark" do
-        expect { click_button "Save Events" }.to change(Mark, :count).by(1)
-      end
+      @will_count_up = 1
+      it_should_behave_like 'Save button create mark'
     end
   end
 
