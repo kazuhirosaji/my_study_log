@@ -8,4 +8,9 @@ describe "StaticPages" do
     it { should have_content('My Studylog')}
     it { should have_title('My Studylog')}
   end
+
+  describe "Statistics page" do
+    before { visit statistics_path}
+    it { should have_content('Statistics page') }
+  end
 end
