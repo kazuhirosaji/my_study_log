@@ -10,7 +10,14 @@ describe "StaticPages" do
   end
 
   describe "Statistics page" do
-    before { visit statistics_path}
+    let(:user) { FactoryGirl.create(:user) }
+    before {
+      sign_in user 
+      visit statistics_path
+    }
+
     it { should have_content('Statistics page') }
+    it { should have_content(user.name) }
+    it { should have_content(user.subjects.count)}
   end
 end
