@@ -18,6 +18,6 @@ describe "StaticPages" do
 
     it { should have_content('Statistics page') }
     it { should have_content(user.name) }
-    it { should have_content(user.subjects.count)}
+    it { should have_content("subjects count = #{user.subjects.count}")}
   end
 end
