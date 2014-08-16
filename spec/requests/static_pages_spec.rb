@@ -38,7 +38,7 @@ describe "StaticPages" do
       }
       it {
         should have_content("subjects count = #{user.subjects.count}")
-        should have_content("marks count = 2")
+        should have_content("programing count = 2")
       }
     end
   end

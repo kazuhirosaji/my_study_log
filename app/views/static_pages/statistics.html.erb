@@ -2,7 +2,7 @@
 <p>Find me in app/views/static_pages/help.html.erb</p>
 <p>subjects count = <%= current_user.subjects.count %></p>
 <% current_user.subjects.each do  |subj| %>
-  <p>marks count = <%= subj.marks.count %></p>
+  <%= "#{subj.name} count = #{subj.marks.count}" %></p>
 <% end %>
 
 
