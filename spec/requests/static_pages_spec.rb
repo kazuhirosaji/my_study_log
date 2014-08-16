@@ -40,6 +40,20 @@ describe "StaticPages" do
         should have_content("subjects count = #{user.subjects.count}")
         should have_content("programing count = 2")
       }
+      it {
+        subj = user.subjects.build(name: "english")
+        subj.save
+        mark = []
+        mark[0] = subj.marks.build(subject_id: subj.id, date: "Wed Jun 04 2014 #{time_info}" )
+        mark[1] = subj.marks.build(subject_id: subj.id, date: "Thu Jun 05 2014 #{time_info}" )
+        mark[2] = subj.marks.build(subject_id: subj.id, date: "Thu Jun 06 2014 #{time_info}" )
+        mark.each do |mark|
+          mark.save
+        end
+        visit statistics_path
+        should have_content("programing count = 2")
+        should have_content("english count = 3")
+      }
     end
   end
 end
