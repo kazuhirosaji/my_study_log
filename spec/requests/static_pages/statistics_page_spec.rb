@@ -1,0 +1,50 @@
+require 'spec_helper'
+
+describe "Statistics page" do
+  subject { page }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:time_info) {"00:00:00 GMT-0700 (PDT)"}
+
+  before {
+    sign_in user
+    visit statistics_path
+  }
+  it { should have_content('Statistics page') }
+  it { should have_content(user.name) }
+
+  context "without subject" do
+    it { should have_content("subjects count = 0")}
+  end
+
+  context "with subject" do
+    before {
+      subj = user.subjects.build(name: "programing")
+      subj.save
+      mark = []
+      mark[0] = subj.marks.build(subject_id: subj.id, date: "Wed Jun 04 2014 #{time_info}" )
+      mark[1] = subj.marks.build(subject_id: subj.id, date: "Thu Jun 05 2014 #{time_info}" )
+      mark.each do |mark|
+        mark.save
+      end
+      visit statistics_path
+    }
+    it {
+      should have_content("subjects count = #{user.subjects.count}")
+      should have_content("programing count = 2")
+    }
+    it {
+      subj = user.subjects.build(name: "english")
+      subj.save
+      mark = []
+      mark[0] = subj.marks.build(subject_id: subj.id, date: "Wed Jun 04 2014 #{time_info}" )
+      mark[1] = subj.marks.build(subject_id: subj.id, date: "Thu Jun 05 2014 #{time_info}" )
+      mark[2] = subj.marks.build(subject_id: subj.id, date: "Fri Jun 06 2014 #{time_info}" )
+      mark.each do |mark|
+        mark.save
+      end
+      visit statistics_path
+      should have_content("programing count = 2")
+      should have_content("english count = 3")
+    }
+  end
+end
