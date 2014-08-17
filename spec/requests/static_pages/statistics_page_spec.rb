@@ -1,9 +1,30 @@
 require 'spec_helper'
 
+def create_subjects(user, num)
+  subj = []
+  num.times do |i|
+    subj[i] = user.subjects.build(name: "subject#{i}")
+    subj[i].save
+  end
+  subj
+end
+
+def create_marks(subject, num)
+  mark = []
+  time_info = "00:00:00 GMT-0700 (PDT)"
+  day = Time.local(2014, 6, 4, 0, 0, 0)
+
+  num.times do |i|
+    mark[i] = subject.marks.build(subject_id: subject.id, date: day.strftime("%a %b %d %Y %X %Z").to_s )
+    mark[i].save
+    day = day + 24*60*60
+  end
+  mark
+end
+
 describe "Statistics page" do
   subject { page }
   let(:user) { FactoryGirl.create(:user) }
-  let(:time_info) {"00:00:00 GMT-0700 (PDT)"}
 
   before {
     sign_in user
@@ -17,34 +38,25 @@ describe "Statistics page" do
   end
 
   context "with subject" do
-    before {
-      subj = user.subjects.build(name: "programing")
-      subj.save
-      mark = []
-      mark[0] = subj.marks.build(subject_id: subj.id, date: "Wed Jun 04 2014 #{time_info}" )
-      mark[1] = subj.marks.build(subject_id: subj.id, date: "Thu Jun 05 2014 #{time_info}" )
-      mark.each do |mark|
-        mark.save
+    it {
+      subject = create_subjects(user, 1)
+      subject.each do |subj|
+        create_marks(subj, 2)
       end
       visit statistics_path
-    }
-    it {
+
       should have_content("subjects count = #{user.subjects.count}")
-      should have_content("programing count = 2")
+      should have_content("subject0 count = 2")
     }
     it {
-      subj = user.subjects.build(name: "english")
-      subj.save
-      mark = []
-      mark[0] = subj.marks.build(subject_id: subj.id, date: "Wed Jun 04 2014 #{time_info}" )
-      mark[1] = subj.marks.build(subject_id: subj.id, date: "Thu Jun 05 2014 #{time_info}" )
-      mark[2] = subj.marks.build(subject_id: subj.id, date: "Fri Jun 06 2014 #{time_info}" )
-      mark.each do |mark|
-        mark.save
+      subject = create_subjects(user, 2)
+      subject.each do |subj|
+        create_marks(subj, 3)
       end
       visit statistics_path
-      should have_content("programing count = 2")
-      should have_content("english count = 3")
+
+      should have_content("subject0 count = 3")
+      should have_content("subject1 count = 3")
     }
   end
 end
