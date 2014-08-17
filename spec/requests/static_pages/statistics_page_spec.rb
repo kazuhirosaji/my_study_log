@@ -11,7 +11,6 @@ end
 
 def create_marks(subject, num)
   mark = []
-  time_info = "00:00:00 GMT-0700 (PDT)"
   day = Time.local(2014, 6, 4, 0, 0, 0)
 
   num.times do |i|
