@@ -79,7 +79,7 @@ describe "Statistics page" do
       visit statistics_path
     }
     it { should have_content("subject0 count = 5") }
-    it { should have_content("subject0 2014/7 count = 3") }
-    # it { should have_content("subject0 2014/8 count = 2") }
+    it { should have_content("2014/7 count = 3") }
+    it { should have_content("2014/8 count = 2") }
   end
 end
