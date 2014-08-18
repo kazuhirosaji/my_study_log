@@ -3,7 +3,9 @@
 <p>subjects count = <%= current_user.subjects.count %></p>
 <% current_user.subjects.each do  |subj| %>
   <%= "#{subj.name} count = #{subj.marks.count}" %></p>
-  <%= print_mounth_count(subj.marks) %>
+  <% get_month_count(subj.marks).each_pair do |month, val| %>
+    <%= "#{month} count = #{val}" %>
+  <% end %>
 <% end %>
 
 

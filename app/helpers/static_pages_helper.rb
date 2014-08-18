@@ -1,5 +1,5 @@
 module StaticPagesHelper
-  def print_mounth_count(marks)
+  def get_month_count(marks)
     results = {}
     marks.each do |mark|
       str = change_date_format(mark.date)
@@ -9,11 +9,7 @@ module StaticPagesHelper
         results[str] = 1
       end
     end
-    disp = ""
-    results.each_pair do |key, value|
-      disp += "#{key} count = #{value}\n"
-    end
-    disp
+    results
   end
   
   def change_date_format(date)
