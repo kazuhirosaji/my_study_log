@@ -1,11 +1,11 @@
-<h1>Statistics page</h1>
-<p>Find me in app/views/static_pages/help.html.erb</p>
-<p>subjects count = <%= current_user.subjects.count %></p>
+<h3><%= "#{current_user.name} have #{current_user.subjects.count} subjects" %></h3>
 <% current_user.subjects.each do  |subj| %>
-  <%= "#{subj.name} count = #{subj.marks.count}" %></p>
+  <h3><%= "#{subj.name} : #{subj.marks.count}" %></h3>
+  <ul>
   <% get_month_count(subj.marks).each_pair do |month, val| %>
-    <%= "#{month} count = #{val}" %>
+    <li><%= "#{month} : #{val}" %></li>
   <% end %>
+  </ul>
 <% end %>
 
 

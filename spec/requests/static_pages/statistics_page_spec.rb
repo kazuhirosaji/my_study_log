@@ -29,11 +29,10 @@ describe "Statistics page" do
     sign_in user
     visit statistics_path
   }
-  it { should have_content('Statistics page') }
   it { should have_content(user.name) }
 
   context "without subject" do
-    it { should have_content("subjects count = 0")}
+    it { should have_content("#{user.name} have 0 subjects")}
   end
 
   context "with subject" do
@@ -44,8 +43,8 @@ describe "Statistics page" do
       end
       visit statistics_path
 
-      should have_content("subjects count = #{user.subjects.count}")
-      should have_content("subject0 count = 2")
+      should have_content("#{user.name} have #{user.subjects.count} subjects")
+      should have_content("subject0 : 2")
     }
     it {
       subject = create_subjects(user, 2)
@@ -54,8 +53,8 @@ describe "Statistics page" do
       end
       visit statistics_path
 
-      should have_content("subject0 count = 3")
-      should have_content("subject1 count = 3")
+      should have_content("subject0 : 3")
+      should have_content("subject1 : 3")
     }
     it {
       subject = create_subjects(user, 10)
@@ -67,7 +66,7 @@ describe "Statistics page" do
       visit statistics_path
 
       user.subjects.count.times do |i|
-        should have_content("subject#{i} count = #{i}")
+        should have_content("subject#{i} : #{i}")
       end
     }
   end
@@ -78,8 +77,8 @@ describe "Statistics page" do
       create_marks(subject[0], 2, 2014, 8, 1)
       visit statistics_path
     }
-    it { should have_content("subject0 count = 5") }
-    it { should have_content("2014/7 count = 3") }
-    it { should have_content("2014/8 count = 2") }
+    it { should have_content("subject0 : 5") }
+    it { should have_content("2014/7 : 3") }
+    it { should have_content("2014/8 : 2") }
   end
 end
