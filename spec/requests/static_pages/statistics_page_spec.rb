@@ -9,9 +9,9 @@ def create_subjects(user, num)
   subj
 end
 
-def create_marks(subject, num)
+def create_marks(subject, num, y=2014, m=6, d=4)
   mark = []
-  day = Time.local(2014, 6, 4, 0, 0, 0)
+  day = Time.local(y, m, d, 0, 0, 0)
 
   num.times do |i|
     mark[i] = subject.marks.build(subject_id: subject.id, date: day.strftime("%a %b %d %Y %X %Z").to_s )
@@ -70,5 +70,16 @@ describe "Statistics page" do
         should have_content("subject#{i} count = #{i}")
       end
     }
+  end
+  context "check each month's marks" do
+    before {
+      subject = create_subjects(user, 1)
+      create_marks(subject[0], 3, 2014, 7, 1)
+      create_marks(subject[0], 2, 2014, 8, 1)
+      visit statistics_path
+    }
+    it { should have_content("subject0 count = 5") }
+    it { should have_content("subject0 2014/7 count = 3") }
+    # it { should have_content("subject0 2014/8 count = 2") }
   end
 end
