@@ -58,17 +58,17 @@ describe "Statistics page" do
       should have_content("subject1 count = 3")
     }
     it {
-      subject = create_subjects(user, 3)
-      i = 1
+      subject = create_subjects(user, 10)
+      i = 0
       subject.each do |subj|
         create_marks(subj, i)
         i += 1
       end
       visit statistics_path
 
-      should have_content("subject0 count = 1")
-      should have_content("subject1 count = 2")
-      should have_content("subject2 count = 3")
+      user.subjects.count.times do |i|
+        should have_content("subject#{i} count = #{i}")
+      end
     }
   end
 end
