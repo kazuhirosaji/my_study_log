@@ -4,7 +4,7 @@
       <nav>
         <ul class="nav pull-left">
           <% if signed_in? %>
-            <li><p class="user_name"><%= link_to gravatar_for current_user %> <%= link_to current_user.name, current_user %></p></li>
+            <li><p class="user_name"><%= link_to gravatar_for(current_user), current_user %> <%= link_to current_user.name, current_user %></p></li>
           <% end %>
           <li><%= link_to "Home", root_path %></li>
           <% if signed_in? %>
