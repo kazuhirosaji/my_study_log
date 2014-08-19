@@ -7,7 +7,9 @@
           <%= render 'shared/subject_form' %>
         </section>
         <% if have_subject?(@user) %>
-          <%= render 'shared/subject' %>
+          <div id="select_subject">
+            <%= render 'shared/subject' %>
+          </div>
         <% end %>
         <%= render 'shared/mark_form' %>
         <%= hidden_field_tag 'debug_text' ,  date_infos(@user) %>
