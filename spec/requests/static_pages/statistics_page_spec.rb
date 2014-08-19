@@ -80,5 +80,21 @@ describe "Statistics page" do
     it { should have_content("subject0 : 5") }
     it { should have_content("2014/7 : 3") }
     it { should have_content("2014/8 : 2") }
+
+  end
+
+  context "check all month's marks" do
+    before {
+      subject = create_subjects(user, 12)
+      1.upto(12) do |i|
+        create_marks(subject[0], i, 2014, i, 1)
+      end
+      visit statistics_path
+    }
+    it {
+      1.upto(12) do |i|
+        should have_content("2014/#{i} : #{i}") 
+      end
+    }
   end
 end
