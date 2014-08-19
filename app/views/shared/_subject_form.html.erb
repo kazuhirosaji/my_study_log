@@ -1,4 +1,4 @@
-<%= form_for(@subject) do |f| %>
+<%= form_for(@subject, remote: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.label "add new subject" %>

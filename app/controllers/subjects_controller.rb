@@ -10,7 +10,10 @@ class SubjectsController < ApplicationController
     else
       flash[:error] = 'Error: Invalid subject name'
     end
-    redirect_to current_user
+    respond_to do |format|
+      format.html { redirect_to current_user }
+      format.js
+    end
   end
 
 
