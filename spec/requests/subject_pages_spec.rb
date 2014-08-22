@@ -14,11 +14,6 @@ describe "Subjects pages" do
       it "should not create a subject" do
         expect { click_button "create" }.not_to change(Subject, :count)
       end
-
-      describe "error messages" do
-        before { click_button "create" }
-        it { should have_content('Error') }
-      end
     end
 
     describe "with valid information" do
@@ -29,4 +24,5 @@ describe "Subjects pages" do
       end
     end
   end
-end
+end
+

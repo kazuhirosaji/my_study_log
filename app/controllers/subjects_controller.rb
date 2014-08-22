@@ -6,9 +6,9 @@ class SubjectsController < ApplicationController
     @subject = current_user.subjects.build(subject_params)
     @user = current_user
     if @subject.save
-      flash[:success] = "New Subject created!"
+      @message = "New Subject created!"
     else
-      flash[:error] = 'Error: Invalid subject name'
+      @message = 'Error: Invalid subject name'
     end
     respond_to do |format|
       format.html { redirect_to current_user }
