@@ -8,13 +8,18 @@ class MarksController < ApplicationController
     events.sort!
 
     @error_message = ""
+    @save_message = nil
     current_name = ""
     subject = nil
 
+
     if  events.size == 0
       @error_message = "Error: not changed"
-      flash_message
-      redirect_to current_user
+      set_message
+      respond_to do |format|
+        format.html { redirect_to current_user }
+        format.js
+      end
       return
     end
 
@@ -34,9 +39,12 @@ class MarksController < ApplicationController
     delete_unsaved_date_marks(subject)
     delete_unsaved_subject_marks(current_user)
 
-    flash_message
+    set_message
 
-    redirect_to current_user
+    respond_to do |format|
+      format.html { redirect_to current_user }
+      format.js
+    end
   end
 
 
@@ -51,11 +59,11 @@ class MarksController < ApplicationController
       params.require(:mark).permit(:date)
     end
 
-    def flash_message
+    def set_message
       if @error_message == ""
-        flash[:success] = 'Saved Calendar Info.'
+        @save_message = 'Saved Calendar Info.'
       else
-        flash[:error] = @error_message
+        @save_message = @error_message
       end    
     end
     

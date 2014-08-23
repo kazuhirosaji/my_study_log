@@ -11,6 +11,9 @@
             <%= render 'shared/subject' %>
           </div>
         <% end %>
+        <div id="save_mark_message">
+          <%= render 'shared/save_mark_message' %>
+        </div>
         <%= render 'shared/mark_form' %>
         <%= hidden_field_tag 'debug_text' ,  date_infos(@user) %>
       </div>

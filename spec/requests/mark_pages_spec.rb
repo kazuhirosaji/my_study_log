@@ -1,10 +1,5 @@
 require 'spec_helper'
 
-def check_save_events_error
-  before { click_button "Save Events" }
-  it { should have_content('Error') }
-end
-
 describe "Mark pages" do
 
   subject { page }
@@ -34,18 +29,11 @@ describe "Mark pages" do
 
       it_should_behave_like 'Save button not create a mark'
 
-      context "error messages" do
-        check_save_events_error
-      end
-
       context "invalid subject name" do
         before { 
           find("#mark_subjects").set("dummy name | Wed Jun 04 2014 #{time_info}")
         }
         it_should_behave_like 'Save button not create a mark'
-        context "error messages" do
-          check_save_events_error
-        end
       end
     end
 
