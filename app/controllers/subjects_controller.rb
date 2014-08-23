@@ -6,7 +6,7 @@ class SubjectsController < ApplicationController
     @subject = current_user.subjects.build(subject_params)
     @user = current_user
     if @subject.save
-      @message = "New Subject created!"
+      @message = 'New Subject created!'
     else
       @message = 'Error: Invalid subject name'
     end

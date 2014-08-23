@@ -1,5 +1,5 @@
 <% if @message %>
-  <p><%= @message %></p>
+  <p id="subject_message"><%= @message %></p>
 <% end %>
 <%= form_for @subject do |f| %>
   <%= f.label :id, "select subject" %>
