@@ -14,7 +14,7 @@ class MarksController < ApplicationController
 
 
     if  events.size == 0
-      @error_message = "Error: not changed"
+      delete_unsaved_subject_marks(current_user)
       set_message
       respond_to do |format|
         format.html { redirect_to current_user }
