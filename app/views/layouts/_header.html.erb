@@ -1,5 +1,3 @@
-
-
 <ul class="nav nav-tabs" role="tablist">
   <% if signed_in? %>
     <li><p class="user_name"><%= link_to gravatar_for(current_user), current_user %> <%= link_to current_user.name, current_user %></p></li>
