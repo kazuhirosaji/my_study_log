@@ -16,4 +16,4 @@
 //= require fullcalendar
 //= require jquery.ui.all
 //= require_tree .
-
+//= require bootstrap-sprockets
