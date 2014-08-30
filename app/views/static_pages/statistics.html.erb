@@ -1,7 +1,7 @@
 <h3><%= "#{current_user.name} have #{current_user.subjects.count} subjects" %></h3>
 <div class="row">
   <% current_user.subjects.each do  |subj| %>
-  	<div class="col-xs-4">
+  	<div class="col-md-4 col-sm-6">
       <h3><%= "#{subj.name} : #{subj.marks.count}" %></h3>
       <ul class="list-group">
       <% get_month_count(subj.marks).each_pair do |month, val| %>
