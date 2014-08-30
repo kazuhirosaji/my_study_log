@@ -1,11 +1,15 @@
 <h3><%= "#{current_user.name} have #{current_user.subjects.count} subjects" %></h3>
-<% current_user.subjects.each do  |subj| %>
-  <h3><%= "#{subj.name} : #{subj.marks.count}" %></h3>
-  <ul class="list-group">
-  <% get_month_count(subj.marks).each_pair do |month, val| %>
-    <li class="list-group-item"><%= "#{month}" %><span class="badge"><%= "#{val}" %></span></li>
+<div class="row">
+  <% current_user.subjects.each do  |subj| %>
+  	<div class="col-xs-4">
+      <h3><%= "#{subj.name} : #{subj.marks.count}" %></h3>
+      <ul class="list-group">
+      <% get_month_count(subj.marks).each_pair do |month, val| %>
+        <li class="list-group-item"><%= "#{month}" %><span class="badge"><%= "#{val}" %></span></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
-  </ul>
-<% end %>
+</div>
 
 
