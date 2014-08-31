@@ -78,8 +78,10 @@ describe "Statistics page" do
       visit statistics_path
     }
     it { should have_content("subject0 : 5") }
-    it { should have_content("2014/7 : 3") }
-    it { should have_content("2014/8 : 2") }
+    it { should have_content("2014/7") }
+    it { should have_css('span', text: '3') }
+    it { should have_content("2014/8") }
+    it { should have_css('span', text: '2') }
 
   end
 
@@ -93,7 +95,8 @@ describe "Statistics page" do
     }
     it {
       1.upto(12) do |i|
-        should have_content("2014/#{i} : #{i}") 
+        should have_content("2014/#{i}")
+        should have_css("span", text: "#{i}")
       end
     }
   end
