@@ -6,7 +6,8 @@ $ ->
       $('#mark_subjects').get(0).value +=  value.title + " | " + value.start + " , "
     )
 
-$ ->
+ready = ->
+  alert("load")
   $('#calendar').fullCalendar
     defaultView: 'month'
     editable : true
@@ -34,4 +35,5 @@ $ ->
       }])
   )
 
-
+$(document).ready(ready)
+$(document).on('page:load', ready)
