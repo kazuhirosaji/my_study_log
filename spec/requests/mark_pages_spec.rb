@@ -95,7 +95,6 @@ describe "Mark pages" do
         mark.save
       end
       sign_in user
-      click_button "Save Events"
     end
     it "should have saved Marks" do
       Mark.count.should == 2
