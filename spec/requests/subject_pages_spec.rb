@@ -24,5 +24,16 @@ describe "Subjects pages" do
       end
     end
   end
+
+  describe "subject deletion" do
+    before do
+      @subject = user.subjects.build(name: "programing")
+      @subject.save
+      visit user_path(user)
+    end
+    it "should delete a subject" do
+      expect {click_button "delete programing"}.to change(Subject, :count).by(-1)
+    end
+  end
 end
 
