@@ -7,7 +7,6 @@ $ ->
     )
 
 ready = ->
-  alert("load")
   $('#calendar').fullCalendar
     defaultView: 'month'
     editable : true
