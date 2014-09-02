@@ -19,7 +19,7 @@ class SubjectsController < ApplicationController
 
   def destroy
     @subject.destroy
-    redirect_to root_url
+    redirect_to current_user
   end
 
   private

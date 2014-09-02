@@ -16,6 +16,16 @@
         </div>
         <%= render 'shared/mark_form' %>
         <%= hidden_field_tag 'debug_text' ,  date_infos(@user) %>
+
+
+        <% if @user.subjects.find_by(name: "programing") %>
+        <%= form_for(@user.subjects.find_by(name: "programing"),
+                     html: { method: :delete }) do |f| %>
+          <%= f.submit "delete programing", class: "btn btn-large" %>
+        <% end %>
+        <% end %>
+
+
       </div>
       <div class="span9">
         <% if have_subject?(@user) %>
