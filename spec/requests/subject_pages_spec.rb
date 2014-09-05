@@ -25,15 +25,30 @@ describe "Subjects pages" do
     end
   end
 
-  describe "subject deletion" do
+  describe "delete subject" do
     before do
-      @subject = user.subjects.build(name: "programing")
-      @subject.save
+      programing = user.subjects.build(name: "programing")
+      programing.save
       visit user_path(user)
     end
     it "should delete a subject" do
       expect {click_button "delete programing"}.to change(Subject, :count).by(-1)
     end
   end
+
+  describe "delete 2subjects" do
+    before do
+      programing = user.subjects.build(name: "programing")
+      english = user.subjects.build(name: "english") 
+      programing.save
+      english.save
+      visit user_path(user)
+    end
+    it "should delete 2 subjects" do
+      expect {click_button "delete programing"}.to change(Subject, :count).by(-1)
+      expect {click_button "delete english"}.to change(Subject, :count).by(-1)
+    end
+  end
+
 end
 

@@ -16,10 +16,13 @@ class SubjectsController < ApplicationController
     end
   end
 
-
   def destroy
     @subject.destroy
-    redirect_to current_user
+    @user = current_user
+    respond_to do |format|
+      format.html { redirect_to current_user }
+      format.js
+    end
   end
 
   private
