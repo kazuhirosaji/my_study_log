@@ -1,0 +1,8 @@
+<% if @delete_message %>
+  <p id="delete_message" class="flash_message"><%= @delete_message %></p>
+<% end %>
+<% @user.subjects.each do |subj| %>
+  <%= form_for(subj, remote: true, html: { method: :delete }) do |f| %>
+    <%= f.submit "delete #{subj.name}", class: "btn btn-large" %>
+  <% end %>
+<% end %>

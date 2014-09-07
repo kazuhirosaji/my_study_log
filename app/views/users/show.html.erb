@@ -16,15 +16,9 @@
         </div>
         <%= render 'shared/mark_form' %>
         <%= hidden_field_tag 'debug_text' ,  date_infos(@user) %>
-
-
-        <% @user.subjects.each do |subj| %>
-          <%= form_for(subj, remote: true, html: { method: :delete }) do |f| %>
-            <%= f.submit "delete #{subj.name}", class: "btn btn-large" %>
-          <% end %>
-        <% end %>
-
-
+        <div id="delete_subject">
+          <%= render 'shared/delete_subject' %>
+        </div>
       </div>
       <div class="span9">
         <% if have_subject?(@user) %>

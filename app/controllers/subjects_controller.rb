@@ -18,7 +18,9 @@ class SubjectsController < ApplicationController
 
   def destroy
     @subject.destroy
+    @delete_message = 'Delete subject'
     @user = current_user
+
     respond_to do |format|
       format.html { redirect_to current_user }
       format.js
