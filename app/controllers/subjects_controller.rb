@@ -17,6 +17,7 @@ class SubjectsController < ApplicationController
   end
 
   def destroy
+    @subject.marks.delete_all
     @subject.destroy
     @delete_message = 'Delete subject'
     @user = current_user

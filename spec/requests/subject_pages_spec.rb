@@ -50,5 +50,18 @@ describe "Subjects pages" do
     end
   end
 
+  describe "delete subject and marks" do
+    before do
+      programing = user.subjects.build(name: "programing")
+      programing.save
+      mark = programing.marks.build(date: "Wed Jun 04 2014 00:00:00 GMT-0700 (PDT)")
+      mark.save
+      visit user_path(user)
+    end
+    it "should delete a subject" do
+      expect {click_button "delete programing"}.to change(Mark, :count).by(-1)
+    end    
+  end
+
 end
 
