@@ -20,10 +20,8 @@
           <%= render 'shared/delete_subject' %>
         </div>
       </div>
-      <div class="span9">
-        <% if have_subject?(@user) %>
-          <div id=calendar>Calendar</div>
-        <% end %>
+      <div id="calendar_space" class="span9">
+        <%= render 'shared/calendar' %>
       </div>
     </div>
   </div>
